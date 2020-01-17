@@ -1,16 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { render } from 'react-dom';
+import UserCard from './Components/UserCard';
+import FollowerCard from './Components/FollowerCard';
 
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      user: ''
+      user: '',
+      followers: ''
     }
   }
+
+  componentDidMount() {
+    fetch('https://api.github.com/users/oashtari')
+      .then(response => response.json())
+      .then(user => {
+        console.log('see user', user);
+        this.setState({ user: user });
+        console.log('state of user', this.state);
+      })
+      .catch(error => console.log('ERROR'));
+
+    fetch('https://api.github.com/users/oashtari/followers')
+      .then(response => response.json())
+      .then(followers => {
+        console.log('followers', followers);
+        this.setState({ followers: followers });
+        console.log('state of follower', this.state.followers);
+      })
+      .catch(error => console.log('ERROR'));
+
+
+  }
+
 
   render() {
     console.log('card is rendering', this.state);
@@ -20,12 +45,13 @@ class App extends React.Component {
 
         <div className="primary_user">
           <h3>This is Omid's card:</h3>
+          <UserCard user={this.state.user} />
 
         </div>
 
         <div className="followers">
-          <h3>This are his followers on GitHub</h3>
-
+          <h3>These are his followers on GitHub:</h3>
+          <FollowerCard followers={this.state.followers} />
         </div>
 
       </div>
@@ -44,7 +70,6 @@ export default App;
 // -- for displaying my followers  
 
 // User component
-// - name, location, bio, public_repo, followers, following
 // -- me
 // -- followers
 // -- style it  
