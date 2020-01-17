@@ -18,7 +18,7 @@ class App extends React.Component {
     fetch('https://api.github.com/users/oashtari')
       .then(response => response.json())
       .then(user => {
-        console.log('see user', user);
+        // console.log('see user', user);
         this.setState({ user: user });
         console.log('state of user', this.state);
       })
@@ -27,11 +27,22 @@ class App extends React.Component {
     fetch('https://api.github.com/users/oashtari/followers')
       .then(response => response.json())
       .then(followers => {
-        console.log('followers', followers);
-        this.setState({ followers: followers });
-        console.log('state of follower', this.state.followers);
+        followers.forEach(follower => {
+          fetch(follower.url)
+            .then(eachURL => {
+              console.log('urltest', eachURL.url);
+            })
+        }
+        )
       })
-      .catch(error => console.log('ERROR'));
+
+
+    // .then(followers => {
+    //   // console.log('followers', followers);
+    //   this.setState({ followers: followers });
+    //   console.log('state of follower', this.state.followers);
+    // })
+    //     .catch(error => console.log('ERROR'));
 
 
   }
