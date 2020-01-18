@@ -1,18 +1,22 @@
 import React from 'react';
+import { Card, CardTitle, CardBody, CardText } from 'reactstrap';
+import '../App.css';
 
 const UserCard = props => {
     return (
-        <div className='user'>
-            <h4 className='name'>Name: {props.user.name}</h4>
-            <h5 className='location'>Location: {props.user.location}</h5>
-            <p className='bio'>Bio: {props.user.bio}</p>
-            <h5 className='repo'>Public Repo: {props.user.public_repo}</h5>
-            <h6 className='followers'>Followers: {props.user.followers}</h6>
-            <h6 className='following'>Following: {props.user.following}</h6>
-        </div>
+
+        <Card style={{ backgroundColor: 'blue', width: '500px' }} className='user'>
+            {/* {console.log('USER TESTING', props)} */}
+            <CardTitle style={{ backgroundColor: 'pink' }} className='name'>Name: {props.user.name}</CardTitle>
+            <Card style={{ backgroundColor: 'red' }}>
+                <CardText className='location'>Location: {props.user.location}</CardText>
+                <Card style={{ backgroundColor: 'orange' }} className='bio'>Bio: {props.user.bio}</Card>
+                <CardText className='repo'>Public Repo: {props.user.public_repo}</CardText>
+                <CardText className='followers'>Followers: {props.user.followers}</CardText>
+                <CardText className='following'>Following: {props.user.following}</CardText>
+            </Card>
+        </Card>
     )
 }
 
 export default UserCard;
-
-// - name, location, bio, public_repo, followers, following
